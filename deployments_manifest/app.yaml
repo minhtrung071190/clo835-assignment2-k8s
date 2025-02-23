@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
   name: my-app
   labels:
@@ -15,7 +15,7 @@ spec:
         app: employees
     spec:
       containers:
-      - name: my-app
+      - name: app
         image: 063388721629.dkr.ecr.us-east-1.amazonaws.com/clo835-assignment2:my-app
         ports:
         - containerPort: 8080
@@ -26,9 +26,9 @@ spec:
             value: "employees"
           - name: DBPWD
             valueFrom:
-              secretKeyRef:
-                name: db-password
-                key: MYSQL_ROOT_PASSWORD
+            secretKeyRef:
+              name: db-password
+              key: MYSQL_ROOT_PASSWORD
           - name: APP_COLOR
             value: "blue"
           - name: DBHOST
