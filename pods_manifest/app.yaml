@@ -1,0 +1,29 @@
+# app pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+spec:
+  containers:
+  - name: app
+    image: 063388721629.dkr.ecr.us-east-1.amazonaws.com/clo835-assignment2:my-app
+    ports:
+    - containerPort: 8080
+    env:
+      - name: DBUSER
+        value: "root"
+      - name: DATABASE
+        value: "employees"
+      - name: DBPWD
+        valueFrom:
+        secretKeyRef:
+          name: db-password
+          key: MYSQL_ROOT_PASSWORD
+      - name: APP_COLOR
+        value: "blue"
+      - name: DBHOST
+        value: "10.244.0.2"
+      - name: DBPORT
+        value: "3306"
+  imagePullSecrets:
+  - name: ecr-secret

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-db
+  labels:
+    app: mysql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: my-db
+        image: 063388721629.dkr.ecr.us-east-1.amazonaws.com/clo835-assignment2:my-db
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-password
+                key: MYSQL_ROOT_PASSWORD
+      imagePullSecrets:
+      - name: ecr-secret
