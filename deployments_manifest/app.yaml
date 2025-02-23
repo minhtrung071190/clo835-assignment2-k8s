@@ -26,9 +26,9 @@ spec:
             value: "employees"
           - name: DBPWD
             valueFrom:
-            secretKeyRef:
-              name: db-password
-              key: MYSQL_ROOT_PASSWORD
+              secretKeyRef:
+                name: db-password
+                key: MYSQL_ROOT_PASSWORD
           - name: APP_COLOR
             value: "blue"
           - name: DBHOST
